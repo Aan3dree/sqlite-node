@@ -1,0 +1,47 @@
+const sqlite3 = require('sqlite3');
+const db = new sqlite3.Database('./chinook.db');
+
+let db = new sqlite3.Database('C:/Users/andre.silva.de.souza/escola.db', sqlite3.OPEN_READWRITE,(err) => {
+    if (err){
+        return console.log(err.message);
+    }
+    console.log('Connected to the SQlite database');
+});
+
+//Retrieving All Rows
+db.all("SELECT EmployeeId, FirstName FROM employees", (error, rows) => {
+    rows.forEach((row) => {
+        console.log(row.EmployeeId + " " + row.FirstName);
+    })
+});
+
+//Retrieving A Single Row
+db.get("SELECT EmployeeId, FirstName FROM employees", (error, row) => {
+    console.log(row.EmployeeId + " " + row.FirstName);
+});
+
+//Retrieving Data Based on Placeholder
+db.all("SELECT EmployeeId, FirstName FROM employees where title=$title", {
+        $title: 'Sales Support Agent'
+    },
+    (error, rows) => {rows.forEach((row) => {
+        console.log(row.EmployeeId + " " + row.FirstName);
+    })
+});
+
+//Executing run() Method
+db.run(`INSERT INTO playlists(Name) VALUES(?)`, 
+    ['Rock'],
+    function(error){
+        console.log("New playlist added with id " + this.lastID);
+    }
+);
+
+db.run(`INSERT INTO professores VALUES
+    (2, 'Silva Holand', 'silva@holand.com', '988772244', 'Intenligencia Artificial'),
+    (3, 'Joseph Elis', 'joseph@elis.com', '978775542', 'Tibia'),
+    (4, 'Merlin Santos', 'merlin@santos.com', '977554466', 'Magia')`);
+
+
+
+
