@@ -44,7 +44,7 @@ app.get('/alunos', (req, res, next) => {
     });
 });
 
-
+//POST adicionar aluno
 app.post('/alunos/', (req, res) => {
     var data = {
         nome: req.body.nome,
@@ -65,16 +65,16 @@ app.post('/alunos/', (req, res) => {
     });
 });
 
-//put metodo
+//POST editar aluno metodo
 app.post('/alunos/:id', (req, res) => {
     var data = {
         nome: req.body.nome,
         email: req.body.email,
         telefone: req.body.telefone
     }
-    const id = req.params.id_aluno;
+    const id = req.params.id;
     const sql = "UPDATE ALUNOS SET nome = ?, email = ?, telefone = ? WHERE (id_aluno = ?)";
-    db.run(sql, [data.name, data.email, data.telefone, id],
+    db.run(sql, [data.nome, data.email, data.telefone, id],
     function (err, result) {
         if(err){
             res.status(400).json({ 'error' : err.message })
