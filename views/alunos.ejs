@@ -1,0 +1,34 @@
+<%- include('_header') -%>
+
+<h1>Lista de alunos</h1>
+
+<div class="table-responsive-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Aluno</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th class="d-print-none">
+            <a class="btn btn-sm btn-success" href="/add">Add</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const aluno of model) { %>
+          <tr>
+            <td><%= aluno.nome %></td>
+            <td><%= aluno.email %></td>
+            <td><%= aluno.telefone %></td>
+            <td class="d-print-none">
+              <a class="btn btn-sm btn-warning" href="/edit/<%= aluno.id_aluno %>">Edit</a>
+              <a class="btn btn-sm btn-danger" href="/delete/<%= aluno.id_aluno %>">Delete</a>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+
+<%- include('_footer') -%>
